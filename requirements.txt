@@ -1,0 +1,5 @@
+Install MatplotLib:- 
+pip install matplotlib
+
+Install Tk:-
+pip install tk
