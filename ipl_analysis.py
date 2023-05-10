@@ -86,7 +86,7 @@ def foreign_umpires():
             country = data["country"]
             if country == "India":
                 continue
-            elif country in countries_list:
+            if country in countries_list:
                 countries_list[country] += 1
             else:
                 countries_list[country] = 1
@@ -147,9 +147,9 @@ def matchesplayed_byteam_perseason():
             # print(team, matches_all_season_list)
             plt.bar(season_years, matches_all_season_list, bottom=bottom)
             # Updating bottom
-            for i in range(len(bottom)):
-                bottom[i] += matches_all_season_list[i]
-            print(bottom)
+            for i in enumerate(bottom):
+                bottom[i[0]] += matches_all_season_list[i[0]]
+            # print(bottom)
         plt.xlabel("Years")
         plt.ylabel("Matches played per season per team")
         plt.title("Matches played per team per season")
@@ -173,8 +173,7 @@ def matches_played_per_year():
             if season_year in season_matches_ids:
                 if match_id in season_matches_ids[season_year]:
                     continue
-                else:
-                    season_matches_ids[season_year].append(match_id)
+                season_matches_ids[season_year].append(match_id)
             else:
                 season_matches_ids[season_year] = [match_id]
 
@@ -238,16 +237,16 @@ def matcheswon_per_team_per_year():
         years.sort()
         # print(years)
         bottom = [0] * len(years)
-        for i in range(len(teams)):
+        for i in enumerate(teams):
             plt.bar(
                 list(season_wins_by_teams.keys()),
-                counts[i],
+                counts[i[0]],
                 bottom=bottom,
-                label=teams[i],
+                label=teams[i[0]],
             )
 
-            for j in range(len(bottom)):
-                bottom[j] += counts[i][j]
+            for j in enumerate(bottom):
+                bottom[j[0]] += counts[i[0]][j[0]]
 
         plt.legend(bbox_to_anchor=(1, 1), loc="upper left")
         plt.tight_layout()
